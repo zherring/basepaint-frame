@@ -24,7 +24,7 @@ const initialState = { current: 1 };
 const baseURL = "https://opensea.io/assets/base/0xba5e05cb26b78eda3a2f8e3b3814726305dcac83/";
 
 const reducer: FrameReducer<State> = (state, action) => {
-  let newCurrent;
+  let newCurrent = state.current;
     if (action.postBody?.untrustedData.buttonIndex === 1) {
       // Decrement current by 1, ensuring it doesn't go below 0
       newCurrent = Math.max(1, state.current - 1);

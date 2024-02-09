@@ -1,0 +1,16 @@
+# on:
+#   schedule:
+#     - cron: '0 19 * * *' # Adjust for UTC time
+# jobs:
+#   process-image:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Set up Node.js
+#       uses: actions/setup-node@v2
+#       with:
+#         node-version: '14'
+#     - name: Install dependencies
+#       run: npm install
+#     - name: Run script
+#       run: node your-script.js

@@ -19,7 +19,15 @@ type State = {
 // Todos
 // downloads 
 
-const initialState = { current: 1 };
+const currentDate = new Date();
+const targetDate = new Date("2023-08-10");
+const oneDay = 24 * 60 * 60 * 1000; // hours * minutes * seconds * milliseconds
+
+const daysSinceTargetDate = Math.round(Math.abs((currentDate - targetDate) / oneDay));
+
+console.log(daysSinceTargetDate);
+
+const initialState = { current: daysSinceTargetDate };
 
 const baseURL = "https://opensea.io/assets/base/0xba5e05cb26b78eda3a2f8e3b3814726305dcac83/";
 
@@ -30,7 +38,7 @@ const reducer: FrameReducer<State> = (state, action) => {
       newCurrent = Math.max(1, state.current - 1);
     } else if (action.postBody?.untrustedData.buttonIndex === 2) {
       // Increment current by 1, ensuring it doesn't exceed 182
-      newCurrent = Math.min(182, state.current + 1);
+      newCurrent = Math.min(daysSinceTargetDate, state.current + 1);
     }
 
   return {
@@ -92,10 +100,21 @@ export default async function Home({
         <FrameButton onClick={dispatch}>
           Prev
         </FrameButton>
-        <FrameButton onClick={dispatch}>
-          Next
-        </FrameButton>
-        <FrameButton href={`${baseURL}${state.current}`} action="post_redirect"> Buy on OS </FrameButton>
+        {state.current !== daysSinceTargetDate && (
+          <FrameButton onClick={dispatch}>
+            Next
+          </FrameButton>
+        )}
+        
+        {state.current === daysSinceTargetDate ? (
+          <FrameButton href="https://basepaint.xyz/mint" action="post_redirect">
+            Mint
+          </FrameButton>
+        ) : (
+          <FrameButton href={`${baseURL}${state.current}`} action="post_redirect">
+            Buy on OS
+          </FrameButton>
+        )}
       </FrameContainer>
     </div>
   );

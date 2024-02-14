@@ -23,13 +23,12 @@ const currentDate = new Date();
 const targetDate = new Date("2023-08-10");
 const oneDay = 24 * 60 * 60 * 1000; // hours * minutes * seconds * milliseconds
 
-const daysSinceTargetDate = Math.round(Math.abs((currentDate - targetDate) / oneDay));
-
+const daysSinceTargetDate = Math.round(Math.abs((currentDate.getTime() - targetDate.getTime()) / oneDay));
 console.log(daysSinceTargetDate);
 
 const initialState = { current: daysSinceTargetDate };
 
-const baseURL = "https://opensea.io/assets/base/0xba5e05cb26b78eda3a2f8e3b3814726305dcac83/";
+const osURL = "https://opensea.io/assets/base/0xba5e05cb26b78eda3a2f8e3b3814726305dcac83/";
 
 const reducer: FrameReducer<State> = (state, action) => {
   let newCurrent = state.current;
@@ -100,18 +99,18 @@ export default async function Home({
         <FrameButton onClick={dispatch}>
           Prev
         </FrameButton>
-        {state.current !== daysSinceTargetDate && (
+        {state.current !== daysSinceTargetDate ? (
           <FrameButton onClick={dispatch}>
             Next
           </FrameButton>
-        )}
+        ) : null}
         
         {state.current === daysSinceTargetDate ? (
           <FrameButton href="https://basepaint.xyz/mint" action="post_redirect">
             Mint
           </FrameButton>
         ) : (
-          <FrameButton href={`${baseURL}${state.current}`} action="post_redirect">
+          <FrameButton href={`${osURL}${state.current}`} action="post_redirect">
             Buy on OS
           </FrameButton>
         )}

@@ -2,4 +2,5 @@
 module.exports = {
   root: true,
   extends: ["next"],
+  ignorePatterns: ["chron/"],
 };

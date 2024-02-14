@@ -1,16 +1,26 @@
-# on:
-#   schedule:
-#     - cron: '0 19 * * *' # Adjust for UTC time
-# jobs:
-#   process-image:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: actions/checkout@v2
-#     - name: Set up Node.js
-#       uses: actions/setup-node@v2
-#       with:
-#         node-version: '14'
-#     - name: Install dependencies
-#       run: npm install
-#     - name: Run script
-#       run: node your-script.js
+name: Daily Canvas Download
+
+on:
+  schedule:
+    - cron: '0 17 * * *' # Runs the script at 12pm EST (5pm UTC) every day
+
+jobs:
+  download-canvas:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install script dependencies
+        run: npm install
+        working-directory: ./chron
+
+      - name: Run script
+        run: node process-daily-canvas.js
+        working-directory: ./chron

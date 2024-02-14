@@ -51,6 +51,11 @@ async function processImage(day) {
           left: Math.round((1200 - maxImageWidth) / 2) // Center horizontally
         }
       ])
+      .png({
+        quality: 80,
+        compressionLevel: 9,
+        palette: true
+      })
       .toFile(processedImagePath);
 
     console.log(`Processed image for day ${day}`);

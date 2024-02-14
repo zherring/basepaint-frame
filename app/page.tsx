@@ -10,7 +10,6 @@ import {
 } from "frames.js/next/server";
 import Link from "next/link";
 import { DEBUG_HUB_OPTIONS } from "./debug/constants";
-import { generateImage } from "./generate-image";
 
 type State = {
   current: number;

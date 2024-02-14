@@ -141,7 +141,7 @@ export default function Page({
   if (error) return <div>Failed to load</div>;
   if (isLoading) return <div>Loading...</div>;
   if (url && !currentFrame?.frame)
-    return <div>Something is wrong, couldn't fetch frame from {url}...</div>;
+    return <div>Something is wrong, couldn&apos;t fetch frame from {url}...</div>;
 
   return (
     <div className="p-5 flex justify-center flex-col">
